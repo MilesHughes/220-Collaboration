@@ -1,0 +1,63 @@
+//My Code
+function setup() {
+  createCanvas(400, 400);
+  background(220);
+  fill(300, 900, 200)
+  circle(200,200,400);
+  circle(200,200,300);
+  fill(999,999,999)
+  circle(250,300,150);
+  circle(300,200,150);
+  fill(300, 90, 30)
+  circle(250,300,75);
+  circle(300,200,75);
+  fill(150,20,20);
+  ellipse(100,200,30,200);
+  ellipse(150,230,30,200);
+}
+
+//ChatGPT Code
+function setup() {
+  createCanvas(400, 400);
+  noLoop(); // We don't need continuous drawing
+}
+
+function draw() {
+  background(255); // White background
+
+  // Draw the pizza base
+  fill(245, 222, 179); // Crust color
+  ellipse(width / 2, height / 2, 300, 300); // Base circle
+
+  // Draw the tomato sauce
+  fill(255, 69, 0); // Tomato red
+  ellipse(width / 2, height / 2, 260, 260); // Inner circle
+
+  // Add cheese
+  fill(255, 255, 102); // Cheese yellow
+  ellipse(width / 2, height / 2, 240, 240);
+
+  // Add toppings - pepperoni slices
+  fill(139, 0, 0); // Pepperoni color
+  for (let i = 0; i < 8; i++) {
+    let angle = TWO_PI / 8 * i;
+    let x = width / 2 + cos(angle) * 100;
+    let y = height / 2 + sin(angle) * 100;
+    ellipse(x, y, 40, 40);
+  }
+
+  // Add some green garnish
+  fill(34, 139, 34); // Green color
+  for (let i = 0; i < 8; i++) {
+    let angle = TWO_PI / 8 * i + PI / 16;
+    let x = width / 2 + cos(angle) * 120;
+    let y = height / 2 + sin(angle) * 120;
+    ellipse(x, y, 15, 15);
+  }
+
+  // Optional: Add a plate
+  noFill();
+  stroke(200);
+  strokeWeight(4);
+  ellipse(width / 2, height / 2, 320, 320);
+}

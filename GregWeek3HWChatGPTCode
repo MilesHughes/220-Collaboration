@@ -1,0 +1,68 @@
+let ball = {
+  x: 300,
+  y: 0,
+  radius: 20,
+  speed: 3,
+};
+
+let paddle = {
+  x: 250,
+  y: 550,
+  width: 100,
+  height: 10,
+};
+
+let score = 0;
+
+function setup() {
+  createCanvas(600, 600);
+}
+
+function draw() {
+  background(30);
+
+  // Draw the ball
+  fill(200, 0, 0);
+  ellipse(ball.x, ball.y, ball.radius * 2);
+
+  // Move the ball
+  ball.y += ball.speed;
+
+  // Reset ball if it falls off screen
+  if (ball.y > height) {
+    ball.y = 0;
+    ball.x = random(ball.radius, width - ball.radius);
+    score = 0; // Reset score
+  }
+
+  // Draw the paddle
+  fill(0, 200, 0);
+  rect(paddle.x, paddle.y, paddle.width, paddle.height);
+
+  // Move paddle with arrow keys
+  if (keyIsDown(LEFT_ARROW)) {
+    paddle.x -= 5;
+  }
+  if (keyIsDown(RIGHT_ARROW)) {
+    paddle.x += 5;
+  }
+
+  // Constrain paddle within canvas
+  paddle.x = constrain(paddle.x, 0, width - paddle.width);
+
+  // Check if ball hits the paddle
+  if (
+    ball.y + ball.radius >= paddle.y &&
+    ball.x > paddle.x &&
+    ball.x < paddle.x + paddle.width
+  ) {
+    ball.y = 0;
+    ball.x = random(ball.radius, width - ball.radius);
+    score++; // Increment score
+  }
+
+  // Display score
+  fill(255);
+  textSize(24);
+  text("Score: " + score, 10, 30);
+}

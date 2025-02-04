@@ -1,0 +1,83 @@
+canvasX = 942
+canvasY = 817
+
+charX = 100
+charY = 100
+
+moveSpeed = 5
+
+obstacleSize = 50
+
+function setup() {
+  createCanvas(canvasX, canvasY);
+  obstacleSetup();
+}
+
+function draw() {
+  background(220);
+  character();
+  movement();
+  interface();
+  obstacle();
+}
+
+
+function movement() {
+  if (keyIsDown (87) === true) {
+    charY -= moveSpeed;
+  }
+  if (keyIsDown (65) === true) {
+    charX -= moveSpeed;
+  }
+  if (keyIsDown (83) === true) {
+    charY += moveSpeed;
+  }
+  if (keyIsDown (68) === true) {
+    charX += moveSpeed;
+  }
+}
+
+function character() {
+  circle(charX,charY,25);
+}
+
+function interface() {
+  fill(255);
+  stroke(0);
+  strokeWeight(3);
+  textSize(20);
+  text('Greg Simmerman',770,800);
+  textSize(30);
+  text('(This game does not have a name yet)',30,50);
+}
+
+function obstacleSetup(){
+  obstacleX = random(1,canvasX);
+  obstacleY = random(1,canvasY);
+  obstacleXMoveSpeed = random(1,10);
+  obstacleYMoveSpeed = random(1,10);
+}
+
+function obstacle() {
+  rect(obstacleX,obstacleY,obstacleSize, obstacleSize);
+  obstacleX += obstacleXMoveSpeed
+  obstacleY += obstacleYMoveSpeed
+  if (obstacleX >= canvasX - obstacleSize) {
+    obstacleXMoveSpeed = obstacleXMoveSpeed * -1
+  }
+  if (obstacleY >= canvasY - obstacleSize) {
+    obstacleYMoveSpeed = obstacleYMoveSpeed * -1
+  }
+  if (obstacleX <= 1) {
+    obstacleXMoveSpeed = obstacleXMoveSpeed * -1
+  }
+  if (obstacleY <= 1) {
+    obstacleYMoveSpeed = obstacleYMoveSpeed * -1
+  }
+}
+
+/*
+function gravity() {
+}
+
+*/

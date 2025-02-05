@@ -8,6 +8,9 @@ moveSpeed = 5
 
 obstacleSize = 50
 
+obstacleMaxPositiveSpeed = 20
+obstacleMaxNegativeSpeed = -20
+
 function setup() {
   createCanvas(canvasX, canvasY);
   obstacleSetup();
@@ -19,6 +22,7 @@ function draw() {
   movement();
   interface();
   obstacle();
+  collision();
 }
 
 
@@ -51,11 +55,11 @@ function interface() {
   text('(This game does not have a name yet)',30,50);
 }
 
-function obstacleSetup(){
+function obstacleSetup() {
   obstacleX = random(1,canvasX);
   obstacleY = random(1,canvasY);
-  obstacleXMoveSpeed = random(1,10);
-  obstacleYMoveSpeed = random(1,10);
+  obstacleXMoveSpeed = random(obstacleMaxNegativeSpeed,obstacleMaxPositiveSpeed);
+  obstacleYMoveSpeed = random(obstacleMaxNegativeSpeed,obstacleMaxPositiveSpeed);
 }
 
 function obstacle() {
@@ -63,21 +67,35 @@ function obstacle() {
   obstacleX += obstacleXMoveSpeed
   obstacleY += obstacleYMoveSpeed
   if (obstacleX >= canvasX - obstacleSize) {
+    obstacleXMoveSpeed = random(obstacleMaxNegativeSpeed,obstacleMaxPositiveSpeed);
+    obstacleYMoveSpeed = random(obstacleMaxNegativeSpeed,obstacleMaxPositiveSpeed);
     obstacleXMoveSpeed = obstacleXMoveSpeed * -1
   }
   if (obstacleY >= canvasY - obstacleSize) {
+    obstacleXMoveSpeed = random(obstacleMaxNegativeSpeed,obstacleMaxPositiveSpeed);
+    obstacleYMoveSpeed = random(obstacleMaxNegativeSpeed,obstacleMaxPositiveSpeed);
     obstacleYMoveSpeed = obstacleYMoveSpeed * -1
   }
   if (obstacleX <= 1) {
     obstacleXMoveSpeed = obstacleXMoveSpeed * -1
+    obstacleXMoveSpeed = random(obstacleMaxNegativeSpeed,obstacleMaxPositiveSpeed);
+    obstacleYMoveSpeed = random(obstacleMaxNegativeSpeed,obstacleMaxPositiveSpeed);
   }
   if (obstacleY <= 1) {
     obstacleYMoveSpeed = obstacleYMoveSpeed * -1
+    obstacleXMoveSpeed = random(obstacleMaxNegativeSpeed,obstacleMaxPositiveSpeed);
+    obstacleYMoveSpeed = random(obstacleMaxNegativeSpeed,obstacleMaxPositiveSpeed);
   }
 }
 
-/*
-function gravity() {
+function collision() {
+    if (charX >= obstacleX) {
+        if (charX <= obstacleX + obstacleSize) {
+            if (charY >= obstacleY) {
+                if (charY <= obstacleY + obstacleSize) {
+                    remove();
+                }
+            }
+        }
+    }
 }
-
-*/
